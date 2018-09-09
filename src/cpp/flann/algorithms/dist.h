@@ -529,7 +529,8 @@ template<typename T>
 struct Hamming
 {
     typedef T ElementType;
-    typedef unsigned int ResultType;
+    // typedef unsigned int ResultType;
+    typedef typename Accumulator<T>::Type ResultType;
 
     /** This is popcount_3() from:
      * http://en.wikipedia.org/wiki/Hamming_weight */

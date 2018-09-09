@@ -257,8 +257,11 @@ flann_index_t _flann_build_index(T* dataset, int rows, int cols, float* speedup,
     else if (flann_distance_type==FLANN_DIST_KULLBACK_LEIBLER) {
         return __flann_build_index<KL_Divergence<T> >(dataset, rows, cols, speedup, flann_params);
     }
+    else if (flann_distance_type==FLANN_DIST_HAMMING) {
+        return __flann_build_index<Hamming<T> >(dataset, rows, cols, speedup, flann_params);
+    }
     else {
-        Logger::error( "Distance type unsupported in the C bindings, use the C++ bindings instead\n");
+        Logger::error( "Distance type (bi) unsupported in the C bindings, use the C++ bindings instead\n");
         return NULL;
     }
 }
@@ -333,8 +336,11 @@ int _flann_add_points(flann_index_t index_ptr, T* points, int rows, int columns,
     else if (flann_distance_type==FLANN_DIST_KULLBACK_LEIBLER) {
         return __flann_add_points<KL_Divergence<T> >(index_ptr, points, rows, columns, rebuild_threshold);
     }
+    else if (flann_distance_type==FLANN_DIST_HAMMING) {
+        return __flann_add_points<Hamming<T> >(index_ptr, points, rows, columns, rebuild_threshold);
+    }
     else {
-        Logger::error( "Distance type unsupported in the C bindings, use the C++ bindings instead\n");
+        Logger::error( "Distance type (ap) unsupported in the C bindings, use the C++ bindings instead\n");
         return 0;
     }
 }
@@ -403,10 +409,10 @@ int _flann_remove_point(flann_index_t index_ptr, unsigned int point_id) {
         return __flann_remove_point<ChiSquareDistance<T> >(index_ptr, point_id);
     }
     else if (flann_distance_type==FLANN_DIST_KULLBACK_LEIBLER) {
-        return __flann_remove_point<KL_Divergence<T> >(index_ptr, point_id);
+        return __flann_remove_point<Hamming<T> >(index_ptr, point_id);
     }
     else {
-        Logger::error( "Distance type unsupported in the C bindings, use the C++ bindings instead\n");
+        Logger::error( "Distance type (rp) unsupported in the C bindings, use the C++ bindings instead\n");
         return 0;
     }
 }
@@ -477,7 +483,7 @@ T* _flann_get_point(flann_index_t index_ptr, unsigned int point_id) {
         return __flann_get_point<KL_Divergence<T> >(index_ptr, point_id);
     }
     else {
-        Logger::error( "Distance type unsupported in the C bindings, use the C++ bindings instead\n");
+        Logger::error( "Distance type (gp) unsupported in the C bindings, use the C++ bindings instead\n");
         return NULL;
     }
 }
@@ -546,7 +552,7 @@ unsigned int _flann_veclen(flann_index_t index_ptr) {
         return __flann_veclen<KL_Divergence<T> >(index_ptr);
     }
     else {
-        Logger::error( "Distance type unsupported in the C bindings, use the C++ bindings instead\n");
+        Logger::error( "Distance type (vl) unsupported in the C bindings, use the C++ bindings instead\n");
         return 0;
     }
 }
@@ -615,7 +621,7 @@ unsigned int _flann_size(flann_index_t index_ptr) {
         return __flann_size<KL_Divergence<T> >(index_ptr);
     }
     else {
-        Logger::error( "Distance type unsupported in the C bindings, use the C++ bindings instead\n");
+        Logger::error( "Distance type (fs) unsupported in the C bindings, use the C++ bindings instead\n");
         return 0;
     }
 }
@@ -757,8 +763,11 @@ int _flann_save_index(flann_index_t index_ptr, char* filename)
     else if (flann_distance_type==FLANN_DIST_KULLBACK_LEIBLER) {
         return __flann_save_index<KL_Divergence<T> >(index_ptr, filename);
     }
+    else if (flann_distance_type==FLANN_DIST_HAMMING) {
+        return __flann_save_index<Hamming<T> >(index_ptr, filename);
+    }
     else {
-        Logger::error( "Distance type unsupported in the C bindings, use the C++ bindings instead\n");
+        Logger::error( "Distance type (si) unsupported in the C bindings, use the C++ bindings instead\n");
         return -1;
     }
 }
@@ -826,6 +835,9 @@ flann_index_t _flann_load_index(char* filename, T* dataset, int rows, int cols)
     }
     else if (flann_distance_type==FLANN_DIST_KULLBACK_LEIBLER) {
         return __flann_load_index<KL_Divergence<T> >(filename, dataset, rows, cols);
+    }
+    else if (flann_distance_type==FLANN_DIST_HAMMING) {
+        return __flann_load_index<Hamming<T> >(filename, dataset, rows, cols);
     }
     else {
         Logger::error( "Distance type unsupported in the C bindings, use the C++ bindings instead\n");
@@ -916,7 +928,7 @@ int _flann_find_nearest_neighbors(T* dataset,  int rows, int cols, T* testset, i
         return __flann_find_nearest_neighbors<KL_Divergence<T> >(dataset, rows, cols, testset, tcount, result, dists, nn, flann_params);
     }
     else {
-        Logger::error( "Distance type unsupported in the C bindings, use the C++ bindings instead\n");
+        Logger::error( "Distance type (nn) unsupported in the C bindings, use the C++ bindings instead\n");
         return -1;
     }
 }
@@ -1004,8 +1016,11 @@ int _flann_find_nearest_neighbors_index(flann_index_t index_ptr, T* testset, int
     else if (flann_distance_type==FLANN_DIST_KULLBACK_LEIBLER) {
         return __flann_find_nearest_neighbors_index<KL_Divergence<T> >(index_ptr, testset, tcount, result, dists, nn, flann_params);
     }
+    else if (flann_distance_type==FLANN_DIST_HAMMING) {
+        return __flann_find_nearest_neighbors_index<Hamming<T> >(index_ptr, testset, tcount, result, dists, nn, flann_params);
+    }
     else {
-        Logger::error( "Distance type unsupported in the C bindings, use the C++ bindings instead\n");
+        Logger::error( "Distance type (nni) unsupported in the C bindings, use the C++ bindings instead\n");
         return -1;
     }
 }
@@ -1103,7 +1118,7 @@ int _flann_radius_search(flann_index_t index_ptr,
         return __flann_radius_search<KL_Divergence<T> >(index_ptr, query, indices, dists, max_nn, radius, flann_params);
     }
     else {
-        Logger::error( "Distance type unsupported in the C bindings, use the C++ bindings instead\n");
+        Logger::error( "Distance type (rs) unsupported in the C bindings, use the C++ bindings instead\n");
         return -1;
     }
 }
@@ -1207,8 +1222,11 @@ int _flann_free_index(flann_index_t index_ptr, FLANNParameters* flann_params)
     else if (flann_distance_type==FLANN_DIST_KULLBACK_LEIBLER) {
         return __flann_free_index<KL_Divergence<T> >(index_ptr, flann_params);
     }
+    else if (flann_distance_type==FLANN_DIST_HAMMING) {
+        return __flann_free_index<Hamming<T> >(index_ptr, flann_params);
+    }
     else {
-        Logger::error( "Distance type unsupported in the C bindings, use the C++ bindings instead\n");
+        Logger::error( "Distance type (fi) unsupported in the C bindings, use the C++ bindings instead\n");
         return -1;
     }
 }
@@ -1288,7 +1306,7 @@ int _flann_compute_cluster_centers(T* dataset, int rows, int cols, int clusters,
         return __flann_compute_cluster_centers<KL_Divergence<T> >(dataset, rows, cols, clusters, result, flann_params);
     }
     else {
-        Logger::error( "Distance type unsupported in the C bindings, use the C++ bindings instead\n");
+        Logger::error( "Distance type (ccc) unsupported in the C bindings, use the C++ bindings instead\n");
         return -1;
     }
 }
