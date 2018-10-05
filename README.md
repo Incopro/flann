@@ -1,3 +1,17 @@
+Forked version by Incopro to support hamming distance
+
+Build
+=====
+
+    mkdir build
+    cd build
+    cmake ../
+    make
+    cd ../src/python
+    cp ../../build/src/python/setup.py .
+    cp ../../build/lib/libflann.so pyflann/
+    python setup.py bdist_wheel
+
 FLANN - Fast Library for Approximate Nearest Neighbors
 ======================================================
 
