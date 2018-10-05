@@ -11,5 +11,5 @@ setup(
     license='BSD',
     url='http://www.cs.ubc.ca/~mariusm/flann/',
     packages=['pyflann'],
-    package_data={'pyflann': 'libflann.so'},
+    package_data={'pyflann': ['libflann.so']},
 )
