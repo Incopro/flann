@@ -1,7 +1,13 @@
 Forked version by Incopro to support hamming distance
 
-Build
-=====
+Sdist Build
+===========
+
+`setup.py sdist` in root
+
+
+Bdist Build
+===========
 
     mkdir build
     cd build

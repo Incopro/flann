@@ -1,0 +1,5 @@
+recursive-include src/cpp/flann/ *.h *.cpp *.in *.hpp *.c CMakeLists.txt
+include cmake/*
+include CMakeLists.txt
+include src/CMakeLists.txt
+include src/cpp/CMakeLists.txt
